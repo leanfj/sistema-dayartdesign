@@ -19,7 +19,7 @@ exports.listaClientes = function(req, res, next) {
     });
 };
 
-exports.cadastraClientes = function(req, res, next) {
+exports.cadastraCliente = function(req, res, next) {
   let cliente = new ClienteModelo(req.body);
 
   cliente
@@ -37,7 +37,7 @@ exports.cadastraClientes = function(req, res, next) {
     });
 };
 
-exports.atualizaClientes = function(req, res, next) {
+exports.atualizaCliente = function(req, res, next) {
   let clienteId = req.params.id;
   ClienteModelo.findByIdAndUpdate(clienteId, {
     $set: {
@@ -57,6 +57,13 @@ exports.atualizaClientes = function(req, res, next) {
     });
 };
 
-exports.removeClientes = function(req, res, next) {
-  res.json(req.body);
+exports.removeCliente = function(req, res, next) {
+  let clienteId = req.params.id;
+  ClienteModelo.findByIdAndRemove(clienteId)
+    .then(e => {
+      res.json({ mensagem: "Cliente removido com sucesso" });
+    })
+    .catch(error => {
+      res.json({ mensagem: "Falha ao remover cliente", info: error });
+    });
 };

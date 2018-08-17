@@ -5,10 +5,10 @@ const controller = require("../controllers/clientesController");
 
 router.get("/", controller.listaClientes);
 
-router.post("/", controller.cadastraClientes);
+router.post("/", controller.cadastraCliente);
 
-router.put("/:id", controller.atualizaClientes);
+router.put("/:id", controller.atualizaCliente);
 
-router.delete("/", controller.removeClientes);
+router.delete("/:id", controller.removeCliente);
 
 module.exports = router;
