@@ -39,10 +39,22 @@ exports.cadastraClientes = function(req, res, next) {
 
 exports.atualizaClientes = function(req, res, next) {
   let clienteId = req.params.id;
-  res.json({
-    id: clienteId,
-    dados: req.body
-  });
+  ClienteModelo.findByIdAndUpdate(clienteId, {
+    $set: {
+      nome: req.body.nome
+    }
+  })
+    .then(e => {
+      res.json({
+        mensagem: "Cliente atualizado com sucesso"
+      });
+    })
+    .catch(error => {
+      res.json({
+        mensagem: "Falha ao atualizar o cliente",
+        info: error
+      });
+    });
 };
 
 exports.removeClientes = function(req, res, next) {
