@@ -7,10 +7,13 @@ const logger = require("morgan");
 const conectarBD = require("./config/database");
 conectarBD("mongodb://leanfj:leanfj1234@ds121982.mlab.com:21982/dayartdesign");
 
+//Carregamento de Models
+const ClienteModelo = require("./models/clienteModel");
+
 // Carregamento de rotas
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const clienteRouter = require("./routes/clientes");
+const clienteRouter = require("./routes/clientesRoute");
 
 const app = express();
 
