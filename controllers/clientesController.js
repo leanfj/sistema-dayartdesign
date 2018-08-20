@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const firebase = require("../config/firebase");
+
 //Carregamento de modelo
 const ClienteModelo = mongoose.model("Cliente");
 

@@ -1,5 +1,4 @@
 const express = require("express");
-// const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
@@ -14,6 +13,8 @@ const ClienteModelo = require("./models/clienteModel");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const clienteRouter = require("./routes/clientesRoute");
+const loginRouter = require("./routes/loginRoute");
+const logoutRouter = require("./routes/logoutRoute");
 
 const app = express();
 
@@ -22,12 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Direcionar para index da pasta public
-// app.use(express.static(path.join(__dirname, "public")));
-
 // Chamadas para rotas
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
 app.use("/clientes", clienteRouter);
 
 module.exports = app;
