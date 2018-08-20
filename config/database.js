@@ -8,11 +8,11 @@ module.exports = function(uri) {
   );
 
   mongoose.connection.on("connected", function() {
-    console.log("Mongoose! Conectado em " + uri);
+    console.log("Mongoose! Conectado");
   });
 
   mongoose.connection.on("disconnected", function() {
-    console.log("Mongoose! Desconectado de " + uri);
+    console.log("Mongoose! Desconectado");
   });
 
   mongoose.connection.on("error", function(error) {
