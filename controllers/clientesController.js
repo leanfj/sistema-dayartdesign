@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const firebase = require("../config/firebase");
-
 //Carregamento de modelo
 const ClienteModelo = mongoose.model("Cliente");
 
@@ -26,7 +24,7 @@ exports.cadastraCliente = function(req, res, next) {
 
   cliente
     .save()
-    .then(e => {
+    .then(() => {
       res.status(201).json({
         mensagem: "Cliente cadastrado com sucesso"
       });
@@ -46,7 +44,7 @@ exports.atualizaCliente = function(req, res, next) {
       nome: req.body.nome
     }
   })
-    .then(e => {
+    .then(() => {
       res.json({
         mensagem: "Cliente atualizado com sucesso"
       });
@@ -62,7 +60,7 @@ exports.atualizaCliente = function(req, res, next) {
 exports.removeCliente = function(req, res, next) {
   let clienteId = req.params.id;
   ClienteModelo.findByIdAndRemove(clienteId)
-    .then(e => {
+    .then(() => {
       res.json({ mensagem: "Cliente removido com sucesso" });
     })
     .catch(error => {

@@ -8,13 +8,15 @@ conectarBD("mongodb://leanfj:leanfj1234@ds121982.mlab.com:21982/dayartdesign");
 
 //Carregamento de Models
 const ClienteModelo = require("./models/clienteModel");
+const ProdutoModelo = require("./models/produtoModel");
 
 // Carregamento de rotas
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const clienteRouter = require("./routes/clientesRoute");
 const loginRouter = require("./routes/loginRoute");
 const logoutRouter = require("./routes/logoutRoute");
+const clientesRouter = require("./routes/clientesRoute");
+const produtosRouter = require("./routes/produtosRoute");
 
 const app = express();
 
@@ -28,6 +30,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
-app.use("/clientes", clienteRouter);
+app.use("/clientes", clientesRouter);
+app.use("/produtos", produtosRouter);
 
 module.exports = app;
