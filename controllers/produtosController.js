@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ProdutoModelo = mongoose.model("Produto");
 
-exports.listaProdutos = function(req, res, next) {
+exports.listaProdutos = function (req, res, next) {
   ProdutoModelo.find({})
     .then(data => {
       res.json({
@@ -18,7 +18,7 @@ exports.listaProdutos = function(req, res, next) {
     });
 };
 
-exports.produtoBySlug = function(req, res, next) {
+exports.produtoBySlug = function (req, res, next) {
   ProdutoModelo.findOne({ slug: req.params.slug })
     .then(data => {
       res.json({
@@ -34,7 +34,7 @@ exports.produtoBySlug = function(req, res, next) {
     });
 };
 
-exports.cadastraProduto = function(req, res, next) {
+exports.cadastraProduto = function (req, res, next) {
   let produto = new ProdutoModelo(req.body);
 
   produto
@@ -52,14 +52,21 @@ exports.cadastraProduto = function(req, res, next) {
     });
 };
 
-exports.atualizaProduto = function(req, res, next) {
-  res.json({
-    mensagem: "Atualiza Produto",
-    produtoId: req.params.id
-  });
+exports.atualizaProduto = function (req, res, next) {
+  ProdutoModelo.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => {
+      res.json({
+        mensagem: "Produto atualizado com sucesso",
+      });
+    })
+    .catch(() => {
+      res.json({
+        mensagem: "Falha ao atualizar produto"
+      })
+    });
 };
 
-exports.removeProduto = function(req, res, next) {
+exports.removeProduto = function (req, res, next) {
   ProdutoModelo.findByIdAndRemove(req.params.id)
     .then(() => {
       res.json({

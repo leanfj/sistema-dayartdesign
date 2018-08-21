@@ -10,7 +10,7 @@ const produtoModelo = new Schema({
   },
   slug: {
     type: String,
-    default: function() {
+    default: function () {
       if (this.nomeProduto) {
         let slugFormatado = this.nomeProduto;
         return slugFormatado
