@@ -17,7 +17,7 @@ firebase.usuarioLogado = function(req, res, next) {
   if (usuario) {
     next();
   } else {
-    res.json({ mensagem: "Usuario não esta logado" });
+    res.json({ mensagem: "Usuário não esta logado" });
   }
 };
 
