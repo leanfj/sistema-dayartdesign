@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //Instanciando novo schema e modelo
@@ -43,4 +43,4 @@ const clienteModelo = new Schema({
 });
 
 //Exportação do schema criado com nome do schema e seu "modelo"
-module.exports = mongoose.model("Cliente", clienteModelo);
+module.exports = mongoose.model('Cliente', clienteModelo);
