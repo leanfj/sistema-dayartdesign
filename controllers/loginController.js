@@ -1,4 +1,4 @@
-const firebase = require("../config/firebase");
+const firebase = require('../config/firebase');
 
 exports.loginUsuario = function(req, res, next) {
   let email = req.body.email;
@@ -9,12 +9,12 @@ exports.loginUsuario = function(req, res, next) {
     .signInWithEmailAndPassword(email, password)
     .then(usuario => {
       res.json({
-        mensagem: "Login realizado com sucesso",
+        mensagem: 'Login realizado com sucesso',
         info: usuario
       });
     })
     .catch(function(error) {
-      res.json({
+      res.status(400).json({
         errorCode: error.code,
         errorMessage: error.message
       });
