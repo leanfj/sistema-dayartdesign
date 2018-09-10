@@ -5,7 +5,7 @@ import api from '../../api/api';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
 
 //components

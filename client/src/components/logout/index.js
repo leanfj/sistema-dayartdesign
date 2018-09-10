@@ -1,8 +1,14 @@
 import React from 'react';
 import './inhdex.css';
 
+import { Button } from 'reactstrap';
+
 const Logout = ({ btnlogout }) => {
-  return <button onClick={btnlogout}>Logout</button>;
+  return (
+    <Button color="danger" className="float-right" onClick={btnlogout}>
+      Logout
+    </Button>
+  );
 };
 
 export default Logout;
