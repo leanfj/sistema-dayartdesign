@@ -3,8 +3,9 @@ import './App.css';
 
 import api from '../../api/api';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+//Componentes de roteamento
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
 
@@ -43,6 +44,7 @@ class App extends Component {
     let target = e.target;
     let email = target.querySelector('#email');
     let password = target.querySelector('#password');
+
 
     api
       .loginUsuario(email.value, password.value)
