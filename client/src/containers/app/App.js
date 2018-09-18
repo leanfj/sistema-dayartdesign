@@ -3,6 +3,11 @@ import './App.css';
 
 import api from '../../api/api';
 
+//Import Materialize-CSS
+import 'materialize-css/dist/css/materialize.css'
+import 'materialize-css/dist/js/materialize.js'
+import M from 'materialize-css'
+
 
 
 //Componentes de roteamento
@@ -37,6 +42,11 @@ class App extends Component {
         });
       }
     });
+  }
+
+  menuMobile = () => {
+    let target = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(target);
   }
 
   usuarioLogin = e => {
@@ -95,7 +105,7 @@ class App extends Component {
             {!this.state.usuarioLogado ? (
               <Redirect to="/" />
             ) : (
-              <Dashboard dashBoardlogout={this.usuarioLogout} />
+              <Dashboard dashBoardlogout={this.usuarioLogout} mobileClick={this.menuMobile} />
             )}
           </Route>
         </Switch>

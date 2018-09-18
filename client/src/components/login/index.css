@@ -1,0 +1,36 @@
+.Login {
+    margin-top: 100px
+}
+
+.Login__form {
+    margin-bottom: 20px;
+}
+
+.Login__logo {
+    margin: 0 auto 20px auto;
+    display: block;
+
+}
+.Login__titulo {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 200;
+    text-align: center
+}
+.Login__signup {
+}
+
+.Login__signup__titulo {
+    font-size: 2rem;
+}
+
+.Login__signup__texto {
+    margin-bottom: 20px;
+
+}
+
+.Login__signup__button {
+    margin-left: auto;
+    display: block;
+}
