@@ -20,5 +20,3 @@ dt_cadastro: "2018-08-25"
 observacao: null
 dt_nascimento: null
 complemento: null
-edit_button: "<div class="b_edit"></div>"
-delete_button: "<div class="b_delete"></div>"

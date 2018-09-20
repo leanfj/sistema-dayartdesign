@@ -44,7 +44,7 @@ const Login = ({ login }) => {
               assumenda eius perspiciatis expedita fugiat nihil illum
               repudiandae? Sint, dolore nisi.
             </p>
-            <button className="Login__signup__button waves-effect waves-light btn">
+            <button className="Login__signup__button waves-effect waves-light btn disabled">
               Registre-se
             </button>
           </div>

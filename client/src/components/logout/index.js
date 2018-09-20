@@ -4,7 +4,7 @@ import './inhdex.css';
 
 const Logout = ({ btnlogout }) => {
   return (
-    <button onClick={btnlogout}>
+    <button className="waves-effect waves-light red btn" onClick={btnlogout}>
       Logout
     </button>
   );

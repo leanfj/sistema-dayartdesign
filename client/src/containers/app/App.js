@@ -5,9 +5,7 @@ import api from '../../api/api';
 
 //Import Materialize-CSS
 import 'materialize-css/dist/css/materialize.css'
-import 'materialize-css/dist/js/materialize.js'
-import M from 'materialize-css'
-
+import M from "materialize-css/dist/js/materialize";
 
 
 //Componentes de roteamento
@@ -30,6 +28,7 @@ class App extends Component {
     };
   }
   componentDidMount() {
+    
     api.verificaUsuarioLogado().then(res => {
       if (res.data.info) {
         this.setState({
@@ -42,11 +41,6 @@ class App extends Component {
         });
       }
     });
-  }
-
-  menuMobile = () => {
-    let target = document.querySelectorAll('.sidenav');
-    M.Sidenav.init(target);
   }
 
   usuarioLogin = e => {
@@ -68,6 +62,7 @@ class App extends Component {
         this.setState({
           mensagemErro: 'Erro ao realizar login verifique a senha ou email'
         });
+        M.toast({html: this.state.mensagemErro});
       });
   };
 
@@ -105,7 +100,7 @@ class App extends Component {
             {!this.state.usuarioLogado ? (
               <Redirect to="/" />
             ) : (
-              <Dashboard dashBoardlogout={this.usuarioLogout} mobileClick={this.menuMobile} />
+              <Dashboard dashBoardlogout={this.usuarioLogout} />
             )}
           </Route>
         </Switch>
