@@ -31,7 +31,7 @@ const Login = ({ login }) => {
               Login
             </button>
           </form>
-          <a className="Login__recuperar" href="#">
+          <a className="Login__recuperar" href="">
             Recuperar Senha
           </a>
         </div>

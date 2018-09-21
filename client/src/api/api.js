@@ -15,10 +15,15 @@ export const logoutUsuario = () => {
   return axios.get('logout');
 };
 
+export const listaClientes = () => {
+  return axios.get('clientes');
+}
+
 const controllers = {
   loginUsuario,
   verificaUsuarioLogado,
-  logoutUsuario
+  logoutUsuario,
+  listaClientes
 };
 
 export default controllers;

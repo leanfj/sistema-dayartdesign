@@ -9,7 +9,7 @@ import M from "materialize-css/dist/js/materialize";
 
 
 //Componentes de roteamento
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Redirect from 'react-router-dom/Redirect';
 
 //components
@@ -28,7 +28,6 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    
     api.verificaUsuarioLogado().then(res => {
       if (res.data.info) {
         this.setState({
@@ -85,7 +84,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
+        <div>
           <Route path="/" exact>
             {this.state.usuarioLogado ? (
               <Redirect to="/dashboard" />
@@ -103,7 +102,7 @@ class App extends Component {
               <Dashboard dashBoardlogout={this.usuarioLogout} />
             )}
           </Route>
-        </Switch>
+        </div>
       </Router>
     );
   }

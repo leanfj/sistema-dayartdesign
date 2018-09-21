@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Logout from "../logout";
 
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import M from "materialize-css/dist/js/materialize";
 
 class MenuBar extends Component {
@@ -13,7 +13,8 @@ class MenuBar extends Component {
     };
   }
   componentDidMount() {
-    M.AutoInit();
+    M.AutoInit();    
+
     this.setState({
       dropBtn: document.querySelectorAll(".dropdown-trigger"),
       sideNav: document.querySelectorAll(".sidenav")
@@ -26,43 +27,43 @@ class MenuBar extends Component {
       <div>
         <ul id="dropdown1" className="dropdown-content center-align">
           <li>
-            <a href="#!">Perfil</a>
+            <a href="">Perfil</a>
           </li>
           <li>
-            <a href="#!">Config</a>
+            <a href="">Config</a>
           </li>
           <li className="divider" />
           <Logout btnlogout={this.props.logout} />
         </ul>
-        <ul class="sidenav center-align" id="mobile-demo">
-          <li>
-            <Link to="/dashboard/clientes">Clientes</Link>
+        <ul className="sidenav center-align" id="mobile-demo">
+          <li className="sidenav-close">
+            <Link to="/clientes">Clientes</Link>
           </li>
-          <li>
-            <Link to="/dashboard/produtos">Produtos</Link>
+          <li className="sidenav-close">
+            <Link to="/produtos">Produtos</Link>
           </li>
           <li className="divider" />
           <Logout btnlogout={this.props.logout} />
         </ul>
         <nav>
           <div className="nav-wrapper">
-            <a href="#!" className="brand-logo">
+            <a href="/dashboard" className="brand-logo">
               Day Art Design
             </a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-              <i class="material-icons">menu</i>
+            <a href="" data-target="mobile-demo" className="sidenav-trigger">
+              <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
               <li>
-                <Link to="/dashboard/clientes">Clientes</Link>
+                <Link to="/clientes">Clientes</Link>
               </li>
               <li>
-                <Link to="/dashboard/produtos">Produtos</Link>
+                <Link to="/produtos">Produtos</Link>
               </li>
               <li>
                 <a
                   className="dropdown-trigger"
-                  href="#!"
+                  href=""
                   data-target="dropdown1"
                 >
                   Admin
