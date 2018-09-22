@@ -22,6 +22,7 @@ class Clientes extends Component {
     };
   }
   componentDidMount() {
+    M.AutoInit();
     this.loadListaCliente();
   }
 
@@ -67,8 +68,14 @@ class Clientes extends Component {
         this.loadListaCliente();
         M.toast({ html: this.state.mensagem });
       })
-      .catch(res => {
-        this.setState({ mensagemErro: res.data.mensagem });
+      .catch(error => {
+        if (error.response.data.info) {
+          this.setState({
+            mensagemErro: "Falha: Informe os dados para cadastro"
+          });
+        } else {
+          this.setState({ mensagemErro: error.response.data.mensagem });
+        }
         M.toast({ html: this.state.mensagemErro });
       });
   };
@@ -81,7 +88,11 @@ class Clientes extends Component {
         this.loadListaCliente();
         M.toast({ html: this.state.mensagem });
       })
-      .catch();
+      .catch(error => {
+        this.setState({ mensagem: error.response.data.mensagem });
+        this.loadListaCliente();
+        M.toast({ html: this.state.mensagem });
+      });
   };
 
   render() {

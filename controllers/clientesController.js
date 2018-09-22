@@ -30,10 +30,9 @@ exports.cadastraCliente = function(req, res, next) {
       });
     })
     .catch(error => {
-      res.status(400).json({
-        mensagem: "Falha ao cadastrar cliente",
-        info: error
-      });
+      res
+        .status(400)
+        .json({ mensagem: "Falha ao cadastrar cliente", info: error });
     });
 };
 
@@ -61,9 +60,11 @@ exports.removeCliente = function(req, res, next) {
   let clienteId = req.params.id;
   ClienteModelo.findByIdAndRemove(clienteId)
     .then(() => {
-      res.json({ mensagem: "Cliente removido com sucesso" });
+      res.status(200).json({ mensagem: "Cliente removido com sucesso" });
     })
     .catch(error => {
-      res.json({ mensagem: "Falha ao remover cliente", info: error });
+      res
+        .status(400)
+        .json({ mensagem: "Falha ao remover cliente", info: error });
     });
 };
