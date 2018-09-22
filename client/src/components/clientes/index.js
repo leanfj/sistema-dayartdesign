@@ -7,19 +7,27 @@ class Clientes extends Component {
     this.state = {
       collapsible: "",
       clientes: [],
+      cliente: {
+        nome: "",
+        email: "",
+        telefone: "",
+        endereco: "",
+        cep: "",
+        cpf: "",
+        origem: ""
+      },
+      mensagem: "",
       mensagemErro: "",
       isloading: true
     };
   }
   componentDidMount() {
     this.loadListaCliente();
-
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     M.AutoInit();
     M.Collapsible.init(this.state.collapsible);
-
   }
 
   loadListaCliente = () => {
@@ -31,7 +39,6 @@ class Clientes extends Component {
           collapsible: document.querySelectorAll(".collapsible"),
           isloading: false
         });
-
       })
       .catch(() => {
         this.setState({
@@ -41,8 +48,40 @@ class Clientes extends Component {
       });
   };
 
-  adicionarCliente = () => {
-    console.log("cliente");
+  adicionarCliente = e => {
+    e.preventDefault();
+    const novoCliente = {};
+    let formElement = e.target;
+    novoCliente.nome = formElement.querySelector("#nome").value;
+    novoCliente.email = formElement.querySelector("#email").value;
+    novoCliente.telefone = formElement.querySelector("#telefone").value;
+    novoCliente.enderecoEntrega = formElement.querySelector("#endereco").value;
+    novoCliente.cep = formElement.querySelector("#cep").value;
+    novoCliente.cpf = formElement.querySelector("#cpf").value;
+    novoCliente.origem = formElement.querySelector("#origem").value;
+
+    api
+      .cadastraCliente(novoCliente)
+      .then(res => {
+        this.setState({ mensagem: res.data.mensagem });
+        this.loadListaCliente();
+        M.toast({ html: this.state.mensagem });
+      })
+      .catch(res => {
+        this.setState({ mensagemErro: res.data.mensagem });
+        M.toast({ html: this.state.mensagemErro });
+      });
+  };
+
+  removeCliente = clienteId => {
+    api
+      .removeCliente(clienteId)
+      .then(res => {
+        this.setState({ mensagem: res.data.mensagem });
+        this.loadListaCliente();
+        M.toast({ html: this.state.mensagem });
+      })
+      .catch();
   };
 
   render() {
@@ -80,14 +119,19 @@ class Clientes extends Component {
                       <div>{cliente.cpf}</div>
                       <div>{cliente.origem}</div>
                     </div>
-                    <div className="col s12" style={buttons}>
+                    <div className="col s12 right-align" style={buttons}>
                       <a
                         className="waves-effect waves-light btn teal "
                         style={btnStyle}
                       >
                         <i className="material-icons">edit</i>
                       </a>
-                      <a className="waves-effect waves-light btn red ">
+                      <a
+                        className="waves-effect waves-light btn red "
+                        onClick={() => {
+                          this.removeCliente(cliente._id);
+                        }}
+                      >
                         <i className="material-icons">delete</i>
                       </a>
                     </div>
@@ -115,27 +159,71 @@ class Clientes extends Component {
             <div className="col s6">
               <h4>Clientes</h4>
             </div>
-            <div className="col s2 offset-s4">
+            <div className="col s2 offset-s4 right-align">
               <a
                 className="waves-effect waves-light btn modal-trigger"
                 href="#modal1"
-                onClick={this.adicionarCliente}
               >
                 <i className="material-icons">add</i>
               </a>
             </div>
             <div id="modal1" className="modal">
               <div className="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
-              </div>
-              <div className="modal-footer">
-                <a
-                  href="#!"
-                  className="modal-close waves-effect waves-green btn-flat"
-                >
-                  Agree
-                </a>
+                <h4>Novo Cliente</h4>
+                <div className="row">
+                  <form onSubmit={this.adicionarCliente} className="col s12">
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="nome" type="text" className="validate" />
+                        <label htmlFor="nome">Nome</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="email" type="email" className="validate" />
+                        <label htmlFor="email">Email</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="telefone" type="tel" className="validate" />
+                        <label htmlFor="telefone">Telefone</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="endereco" type="text" className="validate" />
+                        <label htmlFor="endereco">Endereço</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="cep" type="text" className="validate" />
+                        <label htmlFor="cep">Cep</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="cpf" type="text" className="validate" />
+                        <label htmlFor="cpf">Cpf</label>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input id="origem" type="text" className="validate" />
+                        <label htmlFor="origem">Origem</label>
+                      </div>
+                    </div>
+                    <div className="modal-footer center-align">
+                      <button
+                        className="modal-close waves-effect waves-green btn"
+                        type="submit"
+                      >
+                        Adicionar
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
