@@ -4,9 +4,8 @@ import './App.css';
 import api from '../../api/api';
 
 //Import Materialize-CSS
-import 'materialize-css/dist/css/materialize.css'
-import M from "materialize-css/dist/js/materialize";
-
+import 'materialize-css/dist/css/materialize.css';
+import M from 'materialize-css/dist/js/materialize';
 
 //Componentes de roteamento
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -43,11 +42,10 @@ class App extends Component {
   }
 
   usuarioLogin = e => {
-    e.preventDefault();
-    let target = e.target;
+    // e.preventDefault();
+    let target = document.querySelector('.Login__form');
     let email = target.querySelector('#email');
     let password = target.querySelector('#password');
-
 
     api
       .loginUsuario(email.value, password.value)
@@ -61,7 +59,7 @@ class App extends Component {
         this.setState({
           mensagemErro: 'Erro ao realizar login verifique a senha ou email'
         });
-        M.toast({html: this.state.mensagemErro});
+        M.toast({ html: this.state.mensagemErro });
       });
   };
 
@@ -84,7 +82,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <Switch>
           <Route path="/" exact>
             {this.state.usuarioLogado ? (
               <Redirect to="/dashboard" />
@@ -102,7 +100,7 @@ class App extends Component {
               <Dashboard dashBoardlogout={this.usuarioLogout} />
             )}
           </Route>
-        </div>
+        </Switch>
       </Router>
     );
   }

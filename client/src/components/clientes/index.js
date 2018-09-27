@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import M from "materialize-css/dist/js/materialize";
-import api from "../../api/api";
+import React, { Component } from 'react';
+import M from 'materialize-css/dist/js/materialize';
+import api from '../../api/api';
 class Clientes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsible: "",
+      collapsible: '',
       clientes: [],
       cliente: {
-        nome: "",
-        email: "",
-        telefone: "",
-        endereco: "",
-        cep: "",
-        cpf: "",
-        origem: ""
+        nome: '',
+        email: '',
+        telefone: '',
+        endereco: '',
+        cep: '',
+        cpf: '',
+        origem: ''
       },
-      mensagem: "",
-      mensagemErro: "",
+      mensagem: '',
+      mensagemErro: '',
       isloading: true
     };
   }
@@ -36,14 +36,14 @@ class Clientes extends Component {
       .listaClientes()
       .then(res => {
         this.setState({
-          clientes: res.data.info,
-          collapsible: document.querySelectorAll(".collapsible"),
+          clientes: res.data.info || [],
+          collapsible: document.querySelectorAll('.collapsible'),
           isloading: false
         });
       })
       .catch(() => {
         this.setState({
-          mensagemErro: "Erro ao carregar lista de Clientes"
+          mensagemErro: 'Erro ao carregar lista de Clientes'
         });
         M.toast({ html: this.state.mensagemErro });
       });
@@ -53,13 +53,13 @@ class Clientes extends Component {
     e.preventDefault();
     const novoCliente = {};
     let formElement = e.target;
-    novoCliente.nome = formElement.querySelector("#nome").value;
-    novoCliente.email = formElement.querySelector("#email").value;
-    novoCliente.telefone = formElement.querySelector("#telefone").value;
-    novoCliente.enderecoEntrega = formElement.querySelector("#endereco").value;
-    novoCliente.cep = formElement.querySelector("#cep").value;
-    novoCliente.cpf = formElement.querySelector("#cpf").value;
-    novoCliente.origem = formElement.querySelector("#origem").value;
+    novoCliente.nome = formElement.querySelector('#nome').value;
+    novoCliente.email = formElement.querySelector('#email').value;
+    novoCliente.telefone = formElement.querySelector('#telefone').value;
+    novoCliente.enderecoEntrega = formElement.querySelector('#endereco').value;
+    novoCliente.cep = formElement.querySelector('#cep').value;
+    novoCliente.cpf = formElement.querySelector('#cpf').value;
+    novoCliente.origem = formElement.querySelector('#origem').value;
 
     api
       .cadastraCliente(novoCliente)
@@ -71,7 +71,7 @@ class Clientes extends Component {
       .catch(error => {
         if (error.response.data.info) {
           this.setState({
-            mensagemErro: "Falha: Informe os dados para cadastro"
+            mensagemErro: 'Falha: Informe os dados para cadastro'
           });
         } else {
           this.setState({ mensagemErro: error.response.data.mensagem });
@@ -97,17 +97,17 @@ class Clientes extends Component {
 
   render() {
     const btnStyle = {
-      marginRight: "10px"
+      marginRight: '10px'
     };
     const buttons = {
-      marginTop: "30px"
+      marginTop: '30px'
     };
     const ClientList = () => {
       return (
         <ul className="collapsible">
           {this.state.clientes.map((cliente, index) => {
             return (
-              <li key={"cliente" + index}>
+              <li key={'cliente' + index}>
                 <div className="collapsible-header">
                   <i className="material-icons">face</i>
                   {cliente.nome}

@@ -1,21 +1,21 @@
-import React from "react";
-import "./index.css";
+import React from 'react';
+import './index.css';
 
-import Clientes from "../../components/clientes";
-import Produtos from "../../components/produtos";
+import Clientes from '../../components/clientes';
+import Produtos from '../../components/produtos';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import MenuBar from "../../components/menuBar";
+import MenuBar from '../../components/menuBar';
 
-const Dashboard = ({ dashBoardlogout, exactRoute }) => {
+const Dashboard = ({ dashBoardlogout }) => {
   return (
     <Router>
-      <div>
+      <Switch>
         <MenuBar logout={dashBoardlogout} />
-        <Route path="/clientes" exact={exactRoute} component={Clientes} />
-        <Route path="/produtos" exact={exactRoute} component={Produtos} />
-      </div>
+        <Route path="/clientes" exact component={Clientes} />
+        <Route path="/produtos" component={Produtos} />
+      </Switch>
     </Router>
   );
 };
