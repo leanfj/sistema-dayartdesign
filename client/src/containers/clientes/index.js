@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize';
+
 import api from '../../api/api';
+import MenuBar from '../../components/menuBar';
 class Clientes extends Component {
   constructor(props) {
     super(props);
@@ -165,6 +167,7 @@ class Clientes extends Component {
 
     return (
       <div>
+        <MenuBar btnLogout={this.props.clientesLogout} />
         <div className="container">
           <div className="row valign-wrapper">
             <div className="col s6">

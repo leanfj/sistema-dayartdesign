@@ -9,13 +9,14 @@ import M from 'materialize-css/dist/js/materialize';
 
 //Componentes de roteamento
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Redirect from 'react-router-dom/Redirect';
 
 //components
 import Login from '../../components/login';
 
 //containers
-import Dashboard from '../../containers/dashboard';
+import Dashboard from '../dashboard';
+import Clientes from '../clientes';
+import Produtos from '../produtos';
 
 class App extends Component {
   constructor(props) {
@@ -83,23 +84,51 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact>
-            {this.state.usuarioLogado ? (
-              <Redirect to="/dashboard" />
-            ) : (
-              <Login
-                login={this.usuarioLogin}
-                mensagem={this.state.mensagemErro}
-              />
-            )}
-          </Route>
-          <Route path="/dashboard">
-            {!this.state.usuarioLogado ? (
-              <Redirect to="/" />
-            ) : (
-              <Dashboard dashBoardlogout={this.usuarioLogout} />
-            )}
-          </Route>
+          <Route
+            exact
+            path="/"
+            render={() =>
+              this.state.usuarioLogado ? (
+                <Dashboard dashBoardlogout={this.usuarioLogout} />
+              ) : (
+                <Login login={this.usuarioLogin} />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/dashboard"
+            render={() =>
+              this.state.usuarioLogado ? (
+                <Dashboard dashBoardlogout={this.usuarioLogout} />
+              ) : (
+                <Login login={this.usuarioLogin} />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/clientes"
+            render={() =>
+              this.state.usuarioLogado ? (
+                <Clientes clientesLogout={this.usuarioLogout} />
+              ) : (
+                <Login login={this.usuarioLogin} />
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/produtos"
+            render={() =>
+              this.state.usuarioLogado ? (
+                <Produtos produtosLogout={this.usuarioLogout} />
+              ) : (
+                <Login login={this.usuarioLogin} />
+              )
+            }
+          />
         </Switch>
       </Router>
     );
