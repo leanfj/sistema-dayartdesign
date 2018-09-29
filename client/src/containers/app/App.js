@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import api from '../../api/api';
+//Firebase Import
+import firebase from '../../config/firebase';
 
 //Import Materialize-CSS
 import 'materialize-css/dist/css/materialize.css';
@@ -24,15 +25,17 @@ class App extends Component {
     this.state = {
       usuarioLogado: false,
       usuarioInfo: '',
-      mensagemErro: ''
+      mensagemErro: '',
+      emailUsuario: '',
+      senhaUsuario: ''
     };
   }
   componentDidMount() {
-    api.verificaUsuarioLogado().then(res => {
-      if (res.data.info) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
         this.setState({
           usuarioLogado: true,
-          usuarioInfo: res.data.info
+          usuarioInfo: user
         });
       } else {
         this.setState({
@@ -42,31 +45,42 @@ class App extends Component {
     });
   }
 
-  usuarioLogin = e => {
-    // e.preventDefault();
-    let target = document.querySelector('.Login__form');
-    let email = target.querySelector('#email');
-    let password = target.querySelector('#password');
+  emailUsuarioHandler = e => {
+    let emailValue = e.target.value;
+    this.setState({ emailUsuario: emailValue });
+  };
 
-    api
-      .loginUsuario(email.value, password.value)
+  senhaUsuarioHandler = e => {
+    let senhaValue = e.target.value;
+    this.setState({ senhaUsuario: senhaValue });
+  };
+
+  usuarioLogin = e => {
+    let email = this.state.emailUsuario;
+    let senha = this.state.senhaUsuario;
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, senha)
       .then(res => {
         this.setState({
-          usuarioLogado: true,
-          usuarioInfo: res.data.info.user
+          usuarioLogado: true
         });
+        console.log(res);
       })
-      .catch(res => {
+      .catch(error => {
         this.setState({
           mensagemErro: 'Erro ao realizar login verifique a senha ou email'
         });
+        console.log(error);
         M.toast({ html: this.state.mensagemErro });
       });
   };
 
   usuarioLogout = () => {
-    api
-      .logoutUsuario()
+    firebase
+      .auth()
+      .signOut()
       .then(res => {
         this.setState({
           usuarioLogado: false,
@@ -91,7 +105,11 @@ class App extends Component {
               this.state.usuarioLogado ? (
                 <Dashboard dashBoardlogout={this.usuarioLogout} />
               ) : (
-                <Login login={this.usuarioLogin} />
+                <Login
+                  login={this.usuarioLogin}
+                  inputEmail={this.emailUsuarioHandler}
+                  inputSenha={this.senhaUsuarioHandler}
+                />
               )
             }
           />
@@ -102,7 +120,11 @@ class App extends Component {
               this.state.usuarioLogado ? (
                 <Dashboard dashBoardlogout={this.usuarioLogout} />
               ) : (
-                <Login login={this.usuarioLogin} />
+                <Login
+                  login={this.usuarioLogin}
+                  inputEmail={this.emailUsuarioHandler}
+                  inputSenha={this.senhaUsuarioHandler}
+                />
               )
             }
           />
@@ -111,9 +133,16 @@ class App extends Component {
             path="/clientes"
             render={() =>
               this.state.usuarioLogado ? (
-                <Clientes clientesLogout={this.usuarioLogout} />
+                <Clientes
+                  clientesLogout={this.usuarioLogout}
+                  user={this.state.usuarioInfo}
+                />
               ) : (
-                <Login login={this.usuarioLogin} />
+                <Login
+                  login={this.usuarioLogin}
+                  inputEmail={this.emailUsuarioHandler}
+                  inputSenha={this.senhaUsuarioHandler}
+                />
               )
             }
           />
@@ -125,7 +154,11 @@ class App extends Component {
               this.state.usuarioLogado ? (
                 <Produtos produtosLogout={this.usuarioLogout} />
               ) : (
-                <Login login={this.usuarioLogin} />
+                <Login
+                  login={this.usuarioLogin}
+                  inputEmail={this.emailUsuarioHandler}
+                  inputSenha={this.senhaUsuarioHandler}
+                />
               )
             }
           />

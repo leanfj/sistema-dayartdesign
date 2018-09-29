@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const autorizacao = require("../config/firebase").usuarioLogado;
+const autorizacao = require('../controllers/loginController').usuarioLogado;
 
-const controller = require("../controllers/clientesController");
+const controller = require('../controllers/clientesController');
 
-router.get("/", autorizacao, controller.listaClientes);
+router.get('/', autorizacao, controller.listaClientes);
 
-router.post("/", autorizacao, controller.cadastraCliente);
+router.post('/', autorizacao, controller.cadastraCliente);
 
-router.put("/:id", autorizacao, controller.atualizaCliente);
+router.put('/:id', controller.atualizaCliente);
 
-router.delete("/:id", autorizacao, controller.removeCliente);
+router.delete('/:id', autorizacao, controller.removeCliente);
 
 module.exports = router;

@@ -13,11 +13,9 @@ const UsuarioModelo = require('./models/usuarioModel');
 
 // Carregamento de rotas
 const indexRouter = require('./routes/index');
-const usuariosRouter = require('./routes/usuariosRoute');
-const loginRouter = require('./routes/loginRoute');
-const logoutRouter = require('./routes/logoutRoute');
 const clientesRouter = require('./routes/clientesRoute');
 const produtosRouter = require('./routes/produtosRoute');
+const usuariosRouter = require('./routes/usuariosRoute');
 
 const app = express();
 
@@ -28,10 +26,8 @@ app.use(cookieParser());
 
 // Chamadas para rotas
 app.use('/', indexRouter);
-app.use('/usuarios', usuariosRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
 app.use('/clientes', clientesRouter);
 app.use('/produtos', produtosRouter);
+app.use('/usuarios', usuariosRouter);
 
 module.exports = app;

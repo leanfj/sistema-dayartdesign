@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize';
 
 import api from '../../api/api';
+
 import MenuBar from '../../components/menuBar';
 class Clientes extends Component {
   constructor(props) {
@@ -34,8 +35,10 @@ class Clientes extends Component {
   }
 
   loadListaCliente = () => {
+    // const userId = { uid: this.props.user.uid };
+
     api
-      .listaClientes()
+      .listaClientes(this.props.user.uid)
       .then(res => {
         this.setState({
           clientes: res.data.info || [],
@@ -64,7 +67,7 @@ class Clientes extends Component {
     novoCliente.origem = formElement.querySelector('#origem').value;
 
     api
-      .cadastraCliente(novoCliente)
+      .cadastraCliente(novoCliente, this.props.user.uid)
       .then(res => {
         this.setState({ mensagem: res.data.mensagem });
         this.loadListaCliente();
@@ -78,13 +81,13 @@ class Clientes extends Component {
         } else {
           this.setState({ mensagemErro: error.response.data.mensagem });
         }
-        M.toast({ html: this.state.mensagemErro });
+        // M.toast({ html: this.state.mensagemErro });
       });
   };
 
   removeCliente = clienteId => {
     api
-      .removeCliente(clienteId)
+      .removeCliente(clienteId, this.props.user.uid)
       .then(res => {
         this.setState({ mensagem: res.data.mensagem });
         this.loadListaCliente();

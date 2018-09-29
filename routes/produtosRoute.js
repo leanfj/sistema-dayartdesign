@@ -1,18 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const autorizacao = require("../config/firebase").usuarioLogado;
+// const autorizacao = require("../config/firebase").usuarioLogado;
 
-const controller = require("../controllers/produtosController");
+const controller = require('../controllers/produtosController');
 
-router.get("/", autorizacao, controller.listaProdutos);
+router.get('/', controller.listaProdutos);
 
-router.get("/:slug", autorizacao, controller.produtoBySlug);
+router.get('/:slug', controller.produtoBySlug);
 
-router.post("/", autorizacao, controller.cadastraProduto);
+router.post('/', controller.cadastraProduto);
 
-router.put("/:id", autorizacao, controller.atualizaProduto);
+router.put('/:id', controller.atualizaProduto);
 
-router.delete("/:id", autorizacao, controller.removeProduto);
+router.delete('/:id', controller.removeProduto);
 
 module.exports = router;

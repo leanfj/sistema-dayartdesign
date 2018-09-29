@@ -3,7 +3,7 @@ import './index.css';
 
 import logo from '../../assets/img/logo.png';
 
-const Login = ({ login }) => {
+const Login = ({ login, inputEmail, inputSenha }) => {
   return (
     <div className="Login container">
       <div className="row">
@@ -13,13 +13,18 @@ const Login = ({ login }) => {
           <div className="Login__form col s12">
             <div className="row">
               <div className="input-field col s12">
-                <input className="validate" type="text" id="email" />
+                <input
+                  className="validate"
+                  type="text"
+                  id="email"
+                  onChange={inputEmail}
+                />
                 <label htmlFor="email">Email</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input type="password" id="password" />
+                <input type="password" id="password" onChange={inputSenha} />
                 <label htmlFor="password">Senha</label>
               </div>
             </div>

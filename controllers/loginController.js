@@ -1,33 +1,14 @@
-const firebase = require('../config/firebase');
-const verificaUsuario = require('../config/firebase').usuarioLogado;
+//Midlleware de Autorização de usuário
 
-exports.loginUsuario = function(req, res, next) {
-  let email = req.body.email;
-  let password = req.body.password;
+const firebaseAdmin = require('../config/firebase');
 
-  firebase
+exports.usuarioLogado = (req, res, next) => {
+  let userId = req.query.uid;
+  firebaseAdmin
     .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(usuario => {
-      res.json({
-        mensagem: 'Login realizado com sucesso',
-        info: usuario
-      });
+    .getUser(userId)
+    .then(userRecord => {
+      next();
     })
-    .catch(function(error) {
-      res.status(400).json({
-        errorCode: error.code,
-        errorMessage: error.message
-      });
-    });
-};
-
-exports.verificaLogin = function(req, res, next) {
-  let usuario = firebase.auth().currentUser;
-
-  if (usuario) {
-    res.json({ mensagem: 'Usuário está logado', info: usuario });
-  } else {
-    res.json({ mensagem: 'Usuário não esta logado' });
-  }
+    .catch(error => res.json({ mensagem: error }));
 };
