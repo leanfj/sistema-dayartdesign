@@ -1,15 +1,19 @@
 import axios from 'axios';
 
 export const listaClientes = userId => {
-  return axios.get('clientes', { params: { uid: userId } });
+  return axios.get('clientes', { headers: { Authorization: userId } });
 };
 
 export const cadastraCliente = (cliente, userId) => {
-  return axios.post('clientes', cliente, { params: { uid: userId } });
+  return axios.post('clientes', cliente, {
+    headers: { Authorization: userId }
+  });
 };
 
 export const removeCliente = (clienteId, userId) => {
-  return axios.delete('clientes/' + clienteId, { params: { uid: userId } });
+  return axios.delete('clientes/' + clienteId, {
+    headers: { Authorization: userId }
+  });
 };
 
 const controllers = {

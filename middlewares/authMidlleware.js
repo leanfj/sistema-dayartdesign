@@ -3,12 +3,14 @@
 const firebaseAdmin = require('../config/firebase');
 
 exports.usuarioLogado = (req, res, next) => {
-  let userId = req.query.uid;
+  const auth = req.header('Authorization');
   firebaseAdmin
     .auth()
-    .getUser(userId)
+    .getUser(auth)
     .then(userRecord => {
       next();
     })
-    .catch(error => res.json({ mensagem: error }));
+    .catch(error => {
+      res.json({ mensagem: error });
+    });
 };
