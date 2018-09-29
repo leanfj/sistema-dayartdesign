@@ -12,7 +12,7 @@ const ProdutoModelo = require('./models/produtoModel');
 const UsuarioModelo = require('./models/usuarioModel');
 
 // Carregamento de rotas
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/apiInfo');
 const clientesRouter = require('./routes/clientesRoute');
 const produtosRouter = require('./routes/produtosRoute');
 const usuariosRouter = require('./routes/usuariosRoute');
@@ -23,6 +23,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.disable('x-powered-by');
 
 // Chamadas para rotas
 app.use('/', indexRouter);
