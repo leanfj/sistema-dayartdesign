@@ -1,3 +1,5 @@
+#config API KEYS
+./config/dayartdesign-2018-firebase-adminsdk-3xff2-97a51b2244.json
 # Logs
 logs
 *.log
