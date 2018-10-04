@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 export const listaClientes = userId => {
-  return axios.get('clientes', { headers: { Authorization: userId } });
+  return axios.get('clientes', {
+    headers: { Authorization: userId },
+    params: { uid: userId }
+  });
 };
 
 export const cadastraCliente = (cliente, userId) => {

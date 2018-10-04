@@ -4,21 +4,15 @@ import M from 'materialize-css/dist/js/materialize';
 import api from '../../api/api';
 
 import MenuBar from '../../components/menuBar';
+import Modal from '../../components/modal';
+
 class Clientes extends Component {
   constructor(props) {
     super(props);
     this.state = {
       collapsible: '',
       clientes: [],
-      cliente: {
-        nome: '',
-        email: '',
-        telefone: '',
-        endereco: '',
-        cep: '',
-        cpf: '',
-        origem: ''
-      },
+      cliente: {},
       mensagem: '',
       mensagemErro: '',
       isloading: true
@@ -36,7 +30,6 @@ class Clientes extends Component {
 
   loadListaCliente = () => {
     // const userId = { uid: this.props.user.uid };
-
     api
       .listaClientes(this.props.user.uid)
       .then(res => {
@@ -54,20 +47,11 @@ class Clientes extends Component {
       });
   };
 
-  adicionarCliente = e => {
-    e.preventDefault();
-    const novoCliente = {};
-    let formElement = e.target;
-    novoCliente.nome = formElement.querySelector('#nome').value;
-    novoCliente.email = formElement.querySelector('#email').value;
-    novoCliente.telefone = formElement.querySelector('#telefone').value;
-    novoCliente.enderecoEntrega = formElement.querySelector('#endereco').value;
-    novoCliente.cep = formElement.querySelector('#cep').value;
-    novoCliente.cpf = formElement.querySelector('#cpf').value;
-    novoCliente.origem = formElement.querySelector('#origem').value;
-
+  adicionarCliente = cliente => {
+    //Adcionar User ID Logado
+    cliente.uid = this.props.user.uid;
     api
-      .cadastraCliente(novoCliente, this.props.user.uid)
+      .cadastraCliente(cliente, cliente.uid)
       .then(res => {
         this.setState({ mensagem: res.data.mensagem });
         this.loadListaCliente();
@@ -81,7 +65,7 @@ class Clientes extends Component {
         } else {
           this.setState({ mensagemErro: error.response.data.mensagem });
         }
-        // M.toast({ html: this.state.mensagemErro });
+        M.toast({ html: this.state.mensagemErro });
       });
   };
 
@@ -184,65 +168,10 @@ class Clientes extends Component {
                 <i className="material-icons">add</i>
               </a>
             </div>
-            <div id="modal1" className="modal">
-              <div className="modal-content">
-                <h4>Novo Cliente</h4>
-                <div className="row">
-                  <form onSubmit={this.adicionarCliente} className="col s12">
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="nome" type="text" className="validate" />
-                        <label htmlFor="nome">Nome</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="email" type="email" className="validate" />
-                        <label htmlFor="email">Email</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="telefone" type="tel" className="validate" />
-                        <label htmlFor="telefone">Telefone</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="endereco" type="text" className="validate" />
-                        <label htmlFor="endereco">Endereço</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="cep" type="text" className="validate" />
-                        <label htmlFor="cep">Cep</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="cpf" type="text" className="validate" />
-                        <label htmlFor="cpf">Cpf</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input id="origem" type="text" className="validate" />
-                        <label htmlFor="origem">Origem</label>
-                      </div>
-                    </div>
-                    <div className="modal-footer center-align">
-                      <button
-                        className="modal-close waves-effect waves-green btn"
-                        type="submit"
-                      >
-                        Adicionar
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <Modal
+              inputUpdate={this.inputHandler}
+              addCliente={this.adicionarCliente}
+            />
           </div>
           {this.state.isloading ? <Loader /> : <ClientList />}
         </div>

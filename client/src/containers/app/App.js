@@ -95,6 +95,13 @@ class App extends Component {
   };
 
   render() {
+    const login = (
+      <Login
+        login={this.usuarioLogin}
+        inputEmail={this.emailUsuarioHandler}
+        inputSenha={this.senhaUsuarioHandler}
+      />
+    );
     return (
       <Router>
         <Switch>
@@ -102,14 +109,10 @@ class App extends Component {
             exact
             path="/"
             render={() =>
-              this.state.usuarioLogado ? (
-                <Dashboard dashBoardlogout={this.usuarioLogout} />
+              !this.state.usuarioLogado ? (
+                login
               ) : (
-                <Login
-                  login={this.usuarioLogin}
-                  inputEmail={this.emailUsuarioHandler}
-                  inputSenha={this.senhaUsuarioHandler}
-                />
+                <Dashboard dashBoardlogout={this.usuarioLogout} />
               )
             }
           />
@@ -117,14 +120,10 @@ class App extends Component {
             exact
             path="/dashboard"
             render={() =>
-              this.state.usuarioLogado ? (
-                <Dashboard dashBoardlogout={this.usuarioLogout} />
+              !this.state.usuarioLogado ? (
+                login
               ) : (
-                <Login
-                  login={this.usuarioLogin}
-                  inputEmail={this.emailUsuarioHandler}
-                  inputSenha={this.senhaUsuarioHandler}
-                />
+                <Dashboard dashBoardlogout={this.usuarioLogout} />
               )
             }
           />
@@ -132,16 +131,12 @@ class App extends Component {
             exact
             path="/clientes"
             render={() =>
-              this.state.usuarioLogado ? (
+              !this.state.usuarioLogado ? (
+                login
+              ) : (
                 <Clientes
                   clientesLogout={this.usuarioLogout}
                   user={this.state.usuarioInfo}
-                />
-              ) : (
-                <Login
-                  login={this.usuarioLogin}
-                  inputEmail={this.emailUsuarioHandler}
-                  inputSenha={this.senhaUsuarioHandler}
                 />
               )
             }
@@ -151,14 +146,10 @@ class App extends Component {
             exact
             path="/produtos"
             render={() =>
-              this.state.usuarioLogado ? (
-                <Produtos produtosLogout={this.usuarioLogout} />
+              !this.state.usuarioLogado ? (
+                login
               ) : (
-                <Login
-                  login={this.usuarioLogin}
-                  inputEmail={this.emailUsuarioHandler}
-                  inputSenha={this.senhaUsuarioHandler}
-                />
+                <Produtos produtosLogout={this.usuarioLogout} />
               )
             }
           />

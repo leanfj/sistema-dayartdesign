@@ -1,7 +1,7 @@
 const firebaseAdmin = require('firebase-admin');
 
 // Initialize Firebase-Admin
-const serviceAcount = require('./dayartdesign-2018-firebase-adminsdk-3xff2-97a51b2244.json');
+const serviceAcount = require('./dayartdesign-2018-firebase-adminsdk-3xff2-d8eb95d223.json');
 
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAcount),

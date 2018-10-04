@@ -39,6 +39,9 @@ const clienteModelo = new Schema({
   origem: {
     type: String,
     required: true
+  },
+  uid: {
+    type: String
   }
 });
 

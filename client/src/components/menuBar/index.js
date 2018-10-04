@@ -47,9 +47,9 @@ class MenuBar extends Component {
         </ul>
         <nav>
           <div className="nav-wrapper">
-            <a href="/dashboard" className="brand-logo">
+            <Link to="/dashboard" className="brand-logo">
               Day Art Design
-            </a>
+            </Link>
             <a href="" data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
