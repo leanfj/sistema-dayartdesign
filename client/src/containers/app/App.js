@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //components
 import Login from '../../components/login';
+import LaodScreen from '../../components/loadScreen';
 
 //containers
 import Dashboard from '../dashboard';
@@ -24,6 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       usuarioLogado: false,
+      islogin: true,
       usuarioInfo: '',
       mensagemErro: '',
       emailUsuario: '',
@@ -35,11 +37,13 @@ class App extends Component {
       if (user) {
         this.setState({
           usuarioLogado: true,
+          islogin: false,
           usuarioInfo: user
         });
       } else {
         this.setState({
-          usuarioLogado: false
+          usuarioLogado: false,
+          islogin: false
         });
       }
     });
@@ -103,12 +107,14 @@ class App extends Component {
   };
 
   render() {
-    const login = (
+    const login = !this.state.islogin ? (
       <Login
         login={this.usuarioLogin}
         inputEmail={this.emailUsuarioHandler}
         inputSenha={this.senhaUsuarioHandler}
       />
+    ) : (
+      <LaodScreen />
     );
     return (
       <Router>
