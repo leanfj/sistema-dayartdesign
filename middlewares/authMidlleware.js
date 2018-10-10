@@ -3,7 +3,7 @@
 const firebaseAdmin = require('../config/firebase');
 
 exports.usuarioLogado = (req, res, next) => {
-  const auth = req.header('Authorization');
+  const auth = req.header('Authorization') || req.body.headers.Authorization;
   firebaseAdmin
     .auth()
     .getUser(auth)

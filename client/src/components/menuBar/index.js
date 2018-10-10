@@ -23,8 +23,11 @@ class MenuBar extends Component {
     M.Sidenav.init(this.state.sideNav);
   }
   render() {
+    const styleMenu = {
+      padding: '0 20px'
+    };
     return (
-      <div>
+      <div className="row">
         <ul id="dropdown1" className="dropdown-content center-align">
           <li>
             <a href="">Perfil</a>
@@ -46,9 +49,9 @@ class MenuBar extends Component {
           <Logout logout={this.props.btnLogout} />
         </ul>
         <nav>
-          <div className="nav-wrapper">
+          <div className="nav-wrapper" style={styleMenu}>
             <Link to="/dashboard" className="brand-logo">
-              Day Art Design
+              Day Art
             </Link>
             <a href="" data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>

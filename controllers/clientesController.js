@@ -39,7 +39,7 @@ exports.atualizaCliente = function(req, res, next) {
   let clienteId = req.params.id;
   ClienteModelo.findByIdAndUpdate(clienteId, {
     $set: {
-      nome: req.body.nome
+      nome: req.body.data.nome
     }
   })
     .then(() => {

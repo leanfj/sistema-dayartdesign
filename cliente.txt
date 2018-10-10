@@ -1,6 +1,3 @@
-id_cliente: "8313"
-nome_cliente: " Daniele"
-email: null
 sexo: null
 id_estado: null
 nome_estado: ""
@@ -11,12 +8,8 @@ nome_bairro: null
 id_logradouro: null
 endereco: null
 numero: null
-telefone: null
-cep: null
 ddd: null
-cpf: null
 cnpj: null
-dt_cadastro: "2018-08-25"
 observacao: null
 dt_nascimento: null
 complemento: null

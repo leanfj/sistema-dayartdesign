@@ -43,6 +43,7 @@ class App extends Component {
         });
       }
     });
+    M.AutoInit();
   }
 
   emailUsuarioHandler = e => {
@@ -69,9 +70,16 @@ class App extends Component {
         console.log(res);
       })
       .catch(error => {
-        this.setState({
-          mensagemErro: 'Erro ao realizar login verifique a senha ou email'
-        });
+        if (error.code === 'auth/wrong-password') {
+          this.setState({
+            mensagemErro: 'Senha incorreta'
+          });
+        }
+        if (error.code === 'auth/user-not-found') {
+          this.setState({
+            mensagemErro: 'Email inválido ou usuário não cadastrado'
+          });
+        }
         console.log(error);
         M.toast({ html: this.state.mensagemErro });
       });

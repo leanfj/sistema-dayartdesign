@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 
+import M from 'materialize-css/dist/js/materialize';
+
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cliente: {}
+      cliente: {} || this.props.dadosClienteProp
     };
   }
-
+  componentDidMount() {
+    M.AutoInit();
+    if (this.props.dadosClienteProp) {
+      this.setState({ cliente: this.props.dadosClienteProp });
+    }
+  }
   inputHandler = e => {
     e.preventDefault();
     //Utilização de spread operator para adcionar novas propriedades ao objeto
@@ -17,14 +24,21 @@ class Modal extends Component {
   };
   render() {
     return (
-      <div id="modal1" className="modal">
+      <div id={this.props.idProp} className="modal">
         <div className="modal-content">
-          <h4>Novo Cliente</h4>
+          <h4>{this.props.modalTitleProp}</h4>
           <div className="row">
             <form
               onSubmit={e => {
                 e.preventDefault();
-                this.props.addCliente(this.state.cliente);
+                if (this.props.dadosClienteProp) {
+                  this.props.atualizaClienteProp(
+                    this.state.cliente,
+                    this.state.cliente._id
+                  );
+                } else {
+                  this.props.adcionarClienteProp(this.state.cliente);
+                }
               }}
               className="col s12"
             >
@@ -35,8 +49,9 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.nome}
+                    placeholder="Nome"
                   />
-                  <label htmlFor="nome">Nome</label>
                 </div>
               </div>
               <div className="row">
@@ -46,8 +61,9 @@ class Modal extends Component {
                     type="email"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.email}
+                    placeholder="Email"
                   />
-                  <label htmlFor="email">Email</label>
                 </div>
               </div>
               <div className="row">
@@ -57,8 +73,9 @@ class Modal extends Component {
                     type="tel"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.telefone}
+                    placeholder="Telefone"
                   />
-                  <label htmlFor="telefone">Telefone</label>
                 </div>
               </div>
               <div className="row">
@@ -68,8 +85,9 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.enderecoEntrega}
+                    placeholder="Endereço"
                   />
-                  <label htmlFor="enderecoEntrega">Endereço</label>
                 </div>
               </div>
               <div className="row">
@@ -79,8 +97,9 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.cep}
+                    placeholder="Cep"
                   />
-                  <label htmlFor="cep">Cep</label>
                 </div>
               </div>
               <div className="row">
@@ -90,8 +109,9 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.cpf}
+                    placeholder="CPF"
                   />
-                  <label htmlFor="cpf">Cpf</label>
                 </div>
               </div>
               <div className="row">
@@ -101,8 +121,9 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
+                    defaultValue={this.state.cliente.origem}
+                    placeholder="Origem"
                   />
-                  <label htmlFor="origem">Origem</label>
                 </div>
               </div>
               <div className="modal-footer center-align">
@@ -110,7 +131,7 @@ class Modal extends Component {
                   className="modal-close waves-effect waves-green btn"
                   type="submit"
                 >
-                  Adicionar
+                  {this.props.dadosClienteProp ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </div>
             </form>

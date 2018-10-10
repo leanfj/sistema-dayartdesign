@@ -4,7 +4,12 @@ import './index.css';
 import MenuBar from '../../components/menuBar';
 
 const Dashboard = ({ dashBoardlogout }) => {
-  return <MenuBar btnLogout={dashBoardlogout} />;
+  return (
+    <div>
+      <MenuBar btnLogout={dashBoardlogout} />
+      <h1>Dashboard</h1>
+    </div>
+  );
 };
 
 export default Dashboard;

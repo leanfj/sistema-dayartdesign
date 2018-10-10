@@ -1,0 +1,13 @@
+.cliente {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.cliente__info {
+  margin-right: 10px;
+}
+
+.cliente__data {
+  flex: 2;
+}

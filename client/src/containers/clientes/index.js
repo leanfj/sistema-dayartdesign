@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize';
 
+import './index.css';
+
 import api from '../../api/api';
 
 import MenuBar from '../../components/menuBar';
@@ -12,7 +14,6 @@ class Clientes extends Component {
     this.state = {
       collapsible: '',
       clientes: [],
-      cliente: {},
       mensagem: '',
       mensagemErro: '',
       isloading: true
@@ -48,10 +49,8 @@ class Clientes extends Component {
   };
 
   adicionarCliente = cliente => {
-    //Adcionar User ID Logado
-    cliente.uid = this.props.user.uid;
     api
-      .cadastraCliente(cliente, cliente.uid)
+      .cadastraCliente(cliente, this.props.user.uid)
       .then(res => {
         this.setState({ mensagem: res.data.mensagem });
         this.loadListaCliente();
@@ -66,6 +65,25 @@ class Clientes extends Component {
           this.setState({ mensagemErro: error.response.data.mensagem });
         }
         M.toast({ html: this.state.mensagemErro });
+      });
+  };
+
+  atualizaCliente = (cliente, clienteID) => {
+    console.log(
+      'Atualizar Cliente',
+      cliente.nome,
+      clienteID,
+      this.props.user.uid
+    );
+    api
+      .atualizaCliente(cliente.nome, clienteID, this.props.user.uid)
+      .then(res => {
+        this.setState({ mensagem: res.data.mensagem });
+        this.loadListaCliente();
+        M.toast({ html: this.state.mensagem });
+      })
+      .catch(error => {
+        this.setState({ mensagemErro: error.response.data.mensagem });
       });
   };
 
@@ -102,8 +120,8 @@ class Clientes extends Component {
                   {cliente.nome}
                 </div>
                 <div className="collapsible-body">
-                  <div className="row">
-                    <div className="col s2">
+                  <div className="row cliente">
+                    <div className="hide-on-small-only cliente__info">
                       <div>Email:</div>
                       <div>Telefone:</div>
                       <div>Endereço:</div>
@@ -111,7 +129,7 @@ class Clientes extends Component {
                       <div>CPF:</div>
                       <div>Origem:</div>
                     </div>
-                    <div className="col s10">
+                    <div className="cliente__data">
                       <div>{cliente.email}</div>
                       <div>{cliente.telefone}</div>
                       <div>{cliente.enderecoEntrega}</div>
@@ -119,9 +137,10 @@ class Clientes extends Component {
                       <div>{cliente.cpf}</div>
                       <div>{cliente.origem}</div>
                     </div>
-                    <div className="col s12 right-align" style={buttons}>
+                    <div className="" style={buttons}>
                       <a
-                        className="waves-effect waves-light btn teal "
+                        className="waves-effect waves-light btn teal modal-trigger"
+                        href={'#modal' + index}
                         style={btnStyle}
                       >
                         <i className="material-icons">edit</i>
@@ -135,6 +154,12 @@ class Clientes extends Component {
                         <i className="material-icons">delete</i>
                       </a>
                     </div>
+                    <Modal
+                      atualizaClienteProp={this.atualizaCliente}
+                      idProp={'modal' + index}
+                      modalTitleProp="Atualizar Cliente"
+                      dadosClienteProp={cliente}
+                    />
                   </div>
                 </div>
               </li>
@@ -163,14 +188,15 @@ class Clientes extends Component {
             <div className="col s2 offset-s4 right-align">
               <a
                 className="waves-effect waves-light btn modal-trigger"
-                href="#modal1"
+                href="#modalCadastro"
               >
                 <i className="material-icons">add</i>
               </a>
             </div>
             <Modal
-              inputUpdate={this.inputHandler}
-              addCliente={this.adicionarCliente}
+              adcionarClienteProp={this.adicionarCliente}
+              idProp="modalCadastro"
+              modalTitleProp="Cadastar Cliente"
             />
           </div>
           {this.state.isloading ? <Loader /> : <ClientList />}
