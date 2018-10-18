@@ -49,6 +49,7 @@ class Clientes extends Component {
   };
 
   adicionarCliente = cliente => {
+    cliente.uid = this.props.user.uid;
     api
       .cadastraCliente(cliente, this.props.user.uid)
       .then(res => {
