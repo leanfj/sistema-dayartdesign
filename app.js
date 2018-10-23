@@ -15,7 +15,7 @@ const UsuarioModelo = require('./models/usuarioModel');
 const indexRouter = require('./routes/apiInfo');
 const clientesRouter = require('./routes/clientesRoute');
 const produtosRouter = require('./routes/produtosRoute');
-const usuariosRouter = require('./routes/usuariosRoute');
+const usuarioRouter = require('./routes/usuarioRoute');
 
 const app = express();
 
@@ -29,6 +29,6 @@ app.disable('x-powered-by');
 app.use('/', indexRouter);
 app.use('/clientes', clientesRouter);
 app.use('/produtos', produtosRouter);
-app.use('/usuarios', usuariosRouter);
+app.use('/usuario', usuarioRouter);
 
 module.exports = app;
