@@ -23,21 +23,28 @@ class Modal extends Component {
     });
   };
   render() {
+    const { cliente } = this.state;
+
+    const {
+      idProp,
+      modalTitleProp,
+      dadosClienteProp,
+      atualizaClienteProp,
+      adcionarClienteProp
+    } = this.props;
+
     return (
-      <div id={this.props.idProp} className="modal">
+      <div id={idProp} className="modal">
         <div className="modal-content">
-          <h4>{this.props.modalTitleProp}</h4>
+          <h4>{modalTitleProp}</h4>
           <div className="row">
             <form
               onSubmit={e => {
                 e.preventDefault();
-                if (this.props.dadosClienteProp) {
-                  this.props.atualizaClienteProp(
-                    this.state.cliente,
-                    this.state.cliente._id
-                  );
+                if (dadosClienteProp) {
+                  atualizaClienteProp(cliente, cliente._id);
                 } else {
-                  this.props.adcionarClienteProp(this.state.cliente);
+                  adcionarClienteProp(cliente);
                 }
               }}
               className="col s12"
@@ -49,7 +56,7 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.nome}
+                    defaultValue={cliente.nome}
                     placeholder="Nome"
                   />
                 </div>
@@ -61,7 +68,7 @@ class Modal extends Component {
                     type="email"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.email}
+                    defaultValue={cliente.email}
                     placeholder="Email"
                   />
                 </div>
@@ -73,7 +80,7 @@ class Modal extends Component {
                     type="tel"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.telefone}
+                    defaultValue={cliente.telefone}
                     placeholder="Telefone"
                   />
                 </div>
@@ -85,7 +92,7 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.enderecoEntrega}
+                    defaultValue={cliente.enderecoEntrega}
                     placeholder="Endereço"
                   />
                 </div>
@@ -97,7 +104,7 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.cep}
+                    defaultValue={cliente.cep}
                     placeholder="Cep"
                   />
                 </div>
@@ -109,7 +116,7 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.cpf}
+                    defaultValue={cliente.cpf}
                     placeholder="CPF"
                   />
                 </div>
@@ -121,7 +128,7 @@ class Modal extends Component {
                     type="text"
                     className="validate"
                     onChange={this.inputHandler}
-                    defaultValue={this.state.cliente.origem}
+                    defaultValue={cliente.origem}
                     placeholder="Origem"
                   />
                 </div>
@@ -131,7 +138,7 @@ class Modal extends Component {
                   className="modal-close waves-effect waves-green btn"
                   type="submit"
                 >
-                  {this.props.dadosClienteProp ? 'Atualizar' : 'Cadastrar'}
+                  {dadosClienteProp ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </div>
             </form>
