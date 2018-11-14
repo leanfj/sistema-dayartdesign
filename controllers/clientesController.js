@@ -20,7 +20,7 @@ exports.listaClientes = function(req, res, next) {
 };
 
 exports.cadastraCliente = function(req, res, next) {
-  let cliente = new ClienteModelo(req.body);
+  const cliente = new ClienteModelo(req.body);
   cliente
     .save()
     .then(() => {
@@ -36,10 +36,19 @@ exports.cadastraCliente = function(req, res, next) {
 };
 
 exports.atualizaCliente = function(req, res, next) {
-  let clienteId = req.params.id;
+  const clienteId = req.params.id;
+
+  const { cliente } = req.body;
+
   ClienteModelo.findByIdAndUpdate(clienteId, {
     $set: {
-      nome: req.body.data.nome
+      nome: cliente.nome,
+      email: cliente.email,
+      telefone: cliente.telefone,
+      enderecoEntrega: cliente.enderecoEntrega,
+      cep: cliente.cep,
+      cpf: cliente.cpf,
+      origem: cliente.origem
     }
   })
     .then(() => {

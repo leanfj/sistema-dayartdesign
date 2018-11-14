@@ -19,13 +19,17 @@ class MenuBar extends Component {
       dropBtn: document.querySelectorAll('.dropdown-trigger'),
       sideNav: document.querySelectorAll('.sidenav')
     });
-    M.Dropdown.init(this.state.dropBtn, { hover: false });
-    M.Sidenav.init(this.state.sideNav);
+
+    const { dropBtn, sideNav } = this.state;
+
+    M.Dropdown.init(dropBtn, { hover: false });
+    M.Sidenav.init(sideNav);
   }
   render() {
     const styleMenu = {
       padding: '0 20px'
     };
+    const { btnLogout } = this.props;
     return (
       <div className="row">
         <ul id="dropdown1" className="dropdown-content center-align">
@@ -36,7 +40,7 @@ class MenuBar extends Component {
             <a href="">Config</a>
           </li>
           <li className="divider" />
-          <Logout logout={this.props.btnLogout} />
+          <Logout logout={btnLogout} />
         </ul>
         <ul className="sidenav center-align" id="mobile-demo">
           <li className="sidenav-close">
@@ -46,7 +50,7 @@ class MenuBar extends Component {
             <Link to="/produtos">Produtos</Link>
           </li>
           <li className="divider" />
-          <Logout logout={this.props.btnLogout} />
+          <Logout logout={btnLogout} />
         </ul>
         <nav>
           <div className="nav-wrapper" style={styleMenu}>

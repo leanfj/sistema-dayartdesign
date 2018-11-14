@@ -23,6 +23,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//Medida de segurança para esconder o nome do servidor http
 app.disable('x-powered-by');
 
 // Chamadas para rotas

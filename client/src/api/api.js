@@ -15,10 +15,13 @@ export const cadastraCliente = (cliente, userId) => {
 
 export const atualizaCliente = (cliente, clienteId, userId) => {
   console.log(cliente, clienteId, userId);
-  return axios.put('clientes/' + clienteId, {
-    data: { nome: cliente },
-    headers: { Authorization: userId }
-  });
+  return axios.put(
+    'clientes/' + clienteId,
+    { cliente },
+    {
+      headers: { Authorization: userId }
+    }
+  );
 };
 
 export const removeCliente = (clienteId, userId) => {

@@ -77,7 +77,7 @@ class Clientes extends Component {
       this.props.user.uid
     );
     api
-      .atualizaCliente(cliente.nome, clienteID, this.props.user.uid)
+      .atualizaCliente(cliente, clienteID, this.props.user.uid)
       .then(res => {
         this.setState({ mensagem: res.data.mensagem });
         this.loadListaCliente();
