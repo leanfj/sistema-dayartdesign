@@ -5,13 +5,13 @@ const usuarioModelo = new Schema({
   nomeFantasia: {
     type: String
   },
-  CNPJ: {
+  cnpj: {
     type: String
   },
   nomeUsuario: {
     type: String
   },
-  CPF: {
+  cpf: {
     type: String
   },
   site: {
@@ -47,7 +47,7 @@ const usuarioModelo = new Schema({
   enderecoNumero: {
     type: String
   },
-  CEP: {
+  cep: {
     type: String
   },
   enderecoComplemento: {

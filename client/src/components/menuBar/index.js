@@ -34,7 +34,7 @@ class MenuBar extends Component {
       <div className="row">
         <ul id="dropdown1" className="dropdown-content center-align">
           <li>
-            <a href="">Perfil</a>
+            <Link to="/perfil">Perfil</Link>
           </li>
           <li>
             <a href="">Config</a>
@@ -48,6 +48,13 @@ class MenuBar extends Component {
           </li>
           <li className="sidenav-close">
             <Link to="/produtos">Produtos</Link>
+          </li>
+          <li className="divider" />
+          <li className="sidenav-close">
+            <Link to="/perfil">Perfil</Link>
+          </li>
+          <li className="sidenav-close">
+            <a href="">Config</a>
           </li>
           <li className="divider" />
           <Logout logout={btnLogout} />
